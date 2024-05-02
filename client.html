@@ -1,0 +1,108 @@
+<!-- index.html -->
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Chat</title>
+</head>
+<body>
+  <input type="text" id="messageInput" placeholder="Type your message...">
+  <button onclick="sendMessage()">Send</button>
+  <div id="chatMessages"></div>
+
+  <script>
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onopen = () => {
+      console.log('Connected to server');
+    };
+
+    ws.onmessage = (event) => {
+      const chatMessages = document.getElementById('chatMessages');
+      const message = document.createElement('p');
+      message.textContent = event.data;
+      chatMessages.appendChild(message);
+    };
+
+    function sendMessage() {
+      const messageInput = document.getElementById('messageInput');
+      const message = messageInput.value.trim();
+      if (message !== '') {
+        ws.send(message);
+        messageInput.value = '';
+      }
+    }
+  </script>
+</body>
+</html> -->
+
+
+<!-- index.html -->
+
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebSocket Chat Client</title>
+</head>
+<body>
+  <h1>WebSocket Chat Client</h1>
+  <form id="chatForm">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required><br><br>
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="age" required><br><br>
+    <label for="message">Message:</label>
+    <input type="text" id="message" name="message" required><br><br>
+    <button type="submit">Send</button>
+  </form>
+
+  <div id="messages"></div>
+
+  <script>
+    const ws = new WebSocket('ws://localhost:8080');
+
+    ws.onopen = () => {
+      console.log('Connected to server');
+    };
+
+    ws.onmessage = (event) => {
+      const messagesDiv = document.getElementById('messages');
+      const message = document.createElement('p');
+      message.textContent = event.data;
+      messagesDiv.appendChild(message);
+    };
+
+    document.getElementById('chatForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const name = document.getElementById('name').value;
+      const age = document.getElementById('age').value;
+      const message = document.getElementById('message').value;
+      if (name && age) { // Check if name and age are provided
+        const data = {
+          type: 'info',
+          name: name,
+          age: age
+        };
+        ws.send(JSON.stringify(data)); // Send name and age to server
+      }
+      if (message) { // Check if message is provided
+        const chatData = {
+          type: 'chat',
+          name: name,
+          age: age,
+          message: message
+        };
+        ws.send(JSON.stringify(chatData)); // Send chat message to server
+        document.getElementById('message').value = ''; // Clear the message input field after sending
+      }
+    });
+  </script>
+</body>
+</html>
+
