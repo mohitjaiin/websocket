@@ -1,1 +1,1 @@
-A basic chat system with a single server and multiple client system using the ws library of node.js. For further information and steps you can refer to the WebSocket - Documentation PDF file committed above.
+A basic chat system with a single server and multiple client using the ws library of node.js. For further information and steps you can refer to the WebSocket - Documentation PDF file committed above.
